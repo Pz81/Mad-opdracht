@@ -5,18 +5,26 @@
   <link rel="stylesheet" href="https://unpkg.com/onsenui/css/onsen-css-components.min.css">
   <link rel="stylesheet" href="style.css">
   <script src="https://unpkg.com/onsenui/js/onsenui.min.js"></script>
-  <script>
+  <script defer>
     if('serviceWorker' in navigator) {
       navigator.serviceWorker.register('/sw.js')
         .then(() => console.log("Service Worker Registered"))
         .catch(e => console.log(e));
     }
+    
+
+
   </script>
   <link rel="manifest" href="/manifest.json">
 </head>
+
+
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A==" crossorigin="" />
+<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js" integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA==" crossorigin=""></script>
+
 <body>
-  <ons-button onclick="alert('You clicked me!')">Click Me</ons-button>
-</body>
+  <!-- <ons-button onclick="alert('You clicked me!')">Click Me</ons-button> -->
+
 
 
 
@@ -24,6 +32,9 @@
   
     <div id="content">
       content here
+      <div id="gps"></div>
+<div id="mapid" style="height:300px; width: 300px;"></div>
+
     </div>
     <div id="navbar">
       <div class="button">knop 1</div>
@@ -32,4 +43,49 @@
       <div class="button">knop 4</div>
     </div>
   </div>
+
+  <script>
+var gps = document.getElementById("gps");
+
+console.log("gps");
+
+function getLocation() {
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(showPosition);
+  } else {
+    gps.innerHTML = "Geolocation is not supported by this browser.";
+  }
+}
+
+function showPosition(position) {
+  gps.innerHTML =
+    "Latitude: " +
+    position.coords.latitude +
+    "<br>Longitude: " +
+    position.coords.longitude;
+  var mymap = L.map("mapid").setView(
+    [position.coords.latitude, position.coords.longitude],
+    13
+  );
+  L.tileLayer(
+    "https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}",
+    {
+      attribution:
+        'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+      maxZoom: 18,
+      id: "mapbox/streets-v11",
+      tileSize: 512,
+      zoomOffset: -1,
+      accessToken:
+        "pk.eyJ1IjoibWFydGlqbmt1bnN0bWFuIiwiYSI6ImNrdW9vNWRwNDE1b2wzMHRodm5yNHgyanYifQ.iyGiDrajHBAreS-XOV_WgQ"
+    }
+  ).addTo(mymap);
+}
+
+getLocation();
+
+
+  </script>
+
+</body>
 </html>
