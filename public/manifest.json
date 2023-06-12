@@ -1,6 +1,6 @@
 {
-    "name": "My Onsen UI PWA",
-    "short_name": "Onsen PWA",
+    "name": "Skigebied",
+    "short_name": "Skigebied",
     "start_url": "/",
     "display": "standalone",
     "theme_color": "#ef4e2a",
