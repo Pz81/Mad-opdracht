@@ -2,7 +2,7 @@
 
 *{
   font-family: 'Raleway', sans-serif;
-    border: 1px solid rgb(39, 102, 14);
+    border: 1px solid lightblue;
     /*margin:5px;*/
     box-sizing: border-box;
   }
@@ -36,7 +36,7 @@
     background-color:blue;
     margin:10px;
   }
-
+  
 /* 
 .img{
   background-image: url('Bad-Kleinkirchheim-Winterurlaub-mit-Kindern-Skifahren-und-Snowboard-in-den-Kärntner-Nockbergen-©-BRM-Mathias-Praegant.jpg');
@@ -44,3 +44,7 @@
   background-attachment: fixed;  
   background-size: cover;
 } */
+.img-container{
+  display: flex;
+  justify-content: space-between;
+}
